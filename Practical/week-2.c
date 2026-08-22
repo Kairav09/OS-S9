@@ -17,8 +17,10 @@ int main() {
     src_fd = open(source, O_RDONLY);
     dest_fd = open(destination, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 
-    while ((n = read(src_fd, buffer, sizeof(buffer))) > 0) {
+    n = read(src_fd, buffer, sizeof(buffer));
+    while (n > 0) {
         write(dest_fd, buffer, n);
+        n = read(src_fd, buffer, sizeof(buffer));
     }
 
     close(src_fd);
